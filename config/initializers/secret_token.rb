@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Merlin::Application.config.secret_key_base = '033c74645d2def7b65531cec7bec50dd68222f65891590c4d00a6aec9a0ef88f9213d02f76ce27608dfa11dcf1a26b9cc05c671a1f98ba541bba673574e1039a'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Merlin::Application.config.secret_key_base = secure_token
