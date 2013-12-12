@@ -1,14 +1,13 @@
 require 'spec_helper'
 
+
 describe "Home page" do
+  subject { page }
 
-  it "should have the content 'Welcome Futbol Wizards!'" do
-    visit '/home'
-    expect(page).to have_content('Welcome Futbol Wizards!')
+  before do
+    visit root_path
   end
 
-  it "should have the title 'Futbol Merlin | Home'" do
-    visit '/home'
-    expect(page).to have_title('Futbol Merlin | Home')
-  end
+  it { should have_content('Welcome Futbol Wizards!') }
+  it { should have_title('Futbol Merlin | Home') }
 end

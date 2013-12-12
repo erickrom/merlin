@@ -1,5 +1,5 @@
 Merlin::Application.routes.draw do
-  get "/" => 'home#home'
+  root 'home#home'
   get "/home" => 'home#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
