@@ -5,6 +5,8 @@ Merlin::Application.routes.draw do
   get '/home' => 'home#home'
   get '/signup' => 'users#new'
 
+  resources :users
+
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
