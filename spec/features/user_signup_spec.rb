@@ -33,5 +33,11 @@ describe "Signing up" do
       click_button "Create account"
       expect(page).to have_content("#{User.last.first_name}, Welcome to Futbol Merlin!")
     end
+
+    it "shows the user as signed in" do
+      click_button "Create account"
+      expect(page).to have_link('Sign out')
+      expect(page).to have_title("Futbol Merlin | Erick")
+    end
   end
 end

@@ -14,6 +14,7 @@ describe "Home page" do
   describe "Signup Button" do
     it "takes you to the signup page" do
       click_link "Sign up"
+      expect(page).to have_title('Futbol Merlin | Sign up')
       expect(page).to have_button("Create account")
     end
   end

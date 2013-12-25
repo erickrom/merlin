@@ -1,11 +1,16 @@
 Merlin::Application.routes.draw do
   root 'home#home'
 
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
   #Home Pages
   get '/home' => 'home#home'
   get '/signup' => 'users#new'
 
-  resources :users
+  get '/signin' => 'sessions#new'
+  delete '/signout' => 'sessions#destroy'
+
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
