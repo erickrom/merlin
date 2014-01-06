@@ -10,11 +10,18 @@ describe "Header" do
     end
   end
 
-  describe "Sign in link" do
-    it "takes you to the signin page" do
-      visit root_url
-      click_link "Sign in"
-      expect(page).to have_title('Futbol Merlin | Sign in')
+  describe "when signed in" do
+    include FeatureSpecHelpers
+
+    let(:user) { create(:user) }
+
+    before do
+      visit signin_path
+      sign_in(user)
+    end
+
+    it "shows the right links" do
+      expect(page).to have_link('Users', href: users_path)
     end
   end
 end

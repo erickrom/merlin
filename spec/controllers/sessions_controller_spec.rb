@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe SessionsController do
   describe "POST create" do
-    it
+    xit "pending" do
+    end
   end
 
   describe "GET new" do

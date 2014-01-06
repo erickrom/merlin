@@ -5,6 +5,13 @@ describe "Signing up" do
     visit signup_path
   end
 
+  describe "signup page" do
+    it "has the Sign up title" do
+      expect(page).to have_content('Sign up')
+      expect(page).to have_title('Sign up')
+    end
+  end
+
   describe "with invalid data" do
     it "should not create a new user" do
       expect { click_button "Create account" }.not_to change { User.count }

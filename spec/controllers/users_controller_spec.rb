@@ -44,19 +44,19 @@ describe UsersController do
     end
   end
 
-  describe "GET show" do
-
-    def make_request
-      get :show, id: user.id
-    end
-
-    describe "with a valid user" do
-      let(:user) { create(:user) }
-
-      it "finds the user" do
-        make_request
-        assigns(:user).should be_a(User)
-      end
-    end
-  end
+  #describe "GET show" do
+  #
+  #  def make_request
+  #    get :show, id: user.id
+  #  end
+  #
+  #  describe "with a valid user" do
+  #    let(:user) { create(:user) }
+  #
+  #    it "finds the user" do
+  #      make_request
+  #      assigns(:user).should be_a(User)
+  #    end
+  #  end
+  #end
 end
