@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @all_users = User.where.not(id: current_user.id)
+    #@all_users = User.where.not(id: current_user.id)
+    @users = User.paginate(page: params[:page])
   end
 
   private

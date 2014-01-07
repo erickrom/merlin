@@ -21,8 +21,6 @@ describe "User pages" do
 
   describe "index of registered users" do
     let!(:signed_in_user) { create(:user) }
-    let!(:other_user_1) { create(:user) }
-    let!(:other_user_2) { create(:user) }
 
     before do
       visit signin_path
@@ -35,13 +33,26 @@ describe "User pages" do
     it { should have_title('All Users') }
     it { should have_content('All Users') }
 
-    it "should list each user" do
-      expect(page).to have_selector('li', text: "#{other_user_1.first_name} #{other_user_1.last_name} (#{other_user_1.email})")
-      expect(page).to have_selector('li', text: "#{other_user_2.first_name} #{other_user_2.last_name} (#{other_user_2.email})")
-    end
+    describe "pagination" do
+      before(:all) do
+        30.times { create(:user) }
+      end
 
-    it "should not list the signed in user" do
-      expect(page).not_to have_selector('li', text: "#{signed_in_user.first_name} #{signed_in_user.last_name} (#{signed_in_user.email})")
+      after(:all) do
+        User.delete_all
+      end
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each user" do
+        User.paginate(page: 1).each do |user|
+          expect(page).to have_selector('li', text: "#{user.first_name} #{user.last_name} (#{user.email})")
+        end
+      end
+
+      #it "should not list the signed in user" do
+      #  expect(page).not_to have_selector('li', text: "#{signed_in_user.first_name} #{signed_in_user.last_name} (#{signed_in_user.email})")
+      #end
     end
   end
 end

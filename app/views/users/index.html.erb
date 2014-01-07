@@ -2,8 +2,12 @@
 
 <h1>All Users</h1>
 
+<%= will_paginate %>
+
 <ul class="users">
-  <% @all_users.each do |user| %>
-    <li><%="#{user.first_name} #{user.last_name} (#{user.email})"%></li>
+  <% @users.each do |user| %>
+    <%= render user %>
   <% end %>
 </ul>
+
+<%= will_paginate %>
