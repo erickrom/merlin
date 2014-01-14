@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :signed_in_user, only: [:show, :index]
   before_filter :correct_user, only: [:show]
 
+  layout "user_main"
+
   def new
     @user = User.new
   end
