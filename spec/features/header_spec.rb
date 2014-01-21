@@ -21,6 +21,7 @@ describe "Header" do
     end
 
     it "shows the right links" do
+      expect(page).to have_link(user.first_name, href: user_path(user.id))
       expect(page).to have_link('Users', href: users_path)
     end
   end

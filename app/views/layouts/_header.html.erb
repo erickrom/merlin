@@ -15,6 +15,7 @@
         <!--<li><a href="#about">About</a></li>-->
         <% if signed_in? %>
           <li><%= link_to "Users", users_path %></li>
+          <li><%= link_to "#{current_user.first_name}", user_path(current_user.id) %></li>
           <li><%= link_to "Sign out", signout_path, method: :delete %></li>
         <% else %>
           <li><%= link_to "Sign in", signin_path %></li>
