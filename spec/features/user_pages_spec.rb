@@ -4,7 +4,6 @@ describe "User pages" do
   include FeatureSpecHelpers
 
   describe "A user's page" do
-
     let(:user) { create(:user) }
 
     describe "when signed in" do

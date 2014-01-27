@@ -44,7 +44,7 @@ describe "Signing up" do
     it "shows the user as signed in" do
       click_button "Create account"
       expect(page).to have_link('Sign out')
-      expect(page).to have_title("Futbol Merlin | Erick")
+      expect(page).to have_title('Futbol Merlin | Erick')
     end
   end
 end

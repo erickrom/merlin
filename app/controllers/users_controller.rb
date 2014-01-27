@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:show, :index]
+  skip_before_action :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:show]
 
-  layout "user_main"
+  layout "user_main", except: [:index]
 
   def new
     @user = User.new
@@ -36,10 +36,6 @@ class UsersController < ApplicationController
   end
 
   # Before filters
-
-  def signed_in_user
-    redirect_to signin_url, notice: "Please sign in." unless signed_in?
-  end
 
   def correct_user
     @user = User.find(params[:id])

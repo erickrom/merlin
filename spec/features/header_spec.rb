@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe "Header" do
-  describe "Main home link" do
-    it "takes you to the home page from any page" do
-      visit signin_path
-      expect(page).not_to have_title('Futbol Merlin | Home')
-      click_link "Futbol Merlin"
-      expect(page).to have_title('Futbol Merlin | Home')
-    end
-  end
-
   describe "when signed in" do
     include FeatureSpecHelpers
 
@@ -23,6 +14,17 @@ describe "Header" do
     it "shows the right links" do
       expect(page).to have_link(user.first_name, href: user_path(user.id))
       expect(page).to have_link('Users', href: users_path)
+      expect(page).to have_link('Futbol Merlin', href: user_path(user.id))
+    end
+  end
+
+  describe "when not signed in" do
+    describe "Main home link" do
+      it "takes you to the home page from any page" do
+        visit signin_path
+        click_link "Futbol Merlin"
+        expect(page).to have_title('Futbol Merlin | Home')
+      end
     end
   end
 end

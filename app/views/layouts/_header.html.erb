@@ -7,7 +7,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Futbol Merlin", root_path, class: "navbar-brand" %>
+      <% logo_path = signed_in? ? user_path(current_user.id) : root_path %>
+      <%= link_to "Futbol Merlin", logo_path, class: "navbar-brand" %>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">

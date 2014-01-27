@@ -21,6 +21,10 @@ describe User do
 
   it { should be_valid }
 
+  describe "associations" do
+    it { should have_many(:tournaments) }
+  end
+
   describe "first and last name validations" do
     describe "when name is not present" do
       before { @user.first_name = " " }
