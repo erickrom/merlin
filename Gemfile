@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 gem 'rails', '4.0.2'
 gem 'bcrypt-ruby', '3.1.2'
-
+gem 'faraday', '~> 0.9.0'
 gem 'jbuilder', '1.0.2'
 gem 'jquery-rails', '3.0.4'
+gem 'rails_config'
 gem 'turbolinks', '1.1.1'
 gem 'will_paginate', '3.0.4'
 
@@ -22,6 +23,7 @@ group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'webmock', '~> 1.17.1'
 end
 
 group :doc do

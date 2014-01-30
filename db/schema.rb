@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124071715) do
+ActiveRecord::Schema.define(version: 20140127053223) do
+
+  create_table "app_settings", force: true do |t|
+    t.string   "name",       null: false
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "app_settings", ["name"], name: "index_app_settings_on_name"
 
   create_table "leagues", force: true do |t|
     t.string   "name",          null: false

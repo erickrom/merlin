@@ -22,7 +22,7 @@ describe TournamentsController do
         make_request.should render_template('tournaments/new')
       end
 
-      xit "assigns the available leagues" do
+      it "assigns the available leagues" do
         make_request
         expect(assigns(:leagues)).to eq([league_1, league_2])
       end

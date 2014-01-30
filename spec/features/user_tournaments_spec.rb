@@ -4,12 +4,20 @@ describe "User Tournaments" do
   include FeatureSpecHelpers
 
   let(:user) { create(:user) }
+  let!(:league_1) { create(:league, name: 'Champions League')}
+  let!(:league_2) { create(:league, name: 'Copa del Rey')}
+
   before do
     visit signin_path
     sign_in(user)
   end
 
   describe "in the user's home page" do
+
+    it "lets you create a tournament from the user's main page" do
+      expect(page).to have_link('New Tournament', href: new_tournament_path)
+    end
+
     context "when the user has no tournaments yet" do
       it "shows no tournaments yet text and a button to create a new one" do
         expect(page).to have_content /You aren't playing any tournaments yet/
@@ -38,8 +46,11 @@ describe "User Tournaments" do
       visit user_path(user)
     end
 
-    it "lets you create a tournament from the user's main page" do
-      expect(page).to have_link('New Tournament', href: new_tournament_path)
+    it "shows the available leagues" do
+      click_link 'New Tournament'
+
+      expect(page).to have_content(league_1.name)
+      expect(page).to have_content(league_2.name)
     end
   end
 end

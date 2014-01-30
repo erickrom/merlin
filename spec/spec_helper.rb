@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -24,6 +25,12 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
+  config.before(:all) {
+    # Set the last league fetch to 5 minutes ago as default
+    last_fetch = Time.now.utc - 5.minutes
+    AppSetting.first_or_create(name: 'last_league_fetch').update_attributes!(value: last_fetch.to_s)
+  }
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -44,4 +51,11 @@ RSpec.configure do |config|
   config.order = "random"
   config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
+
+  # Project includes
+  config.include FutbolResultadosRequestStubs
+  config.include LoadFixtureHelper
+
+  # LoadFixtureHelper
+  LoadFixtureHelper.fixture_path = File.expand_path('../fixtures', __FILE__)
 end
