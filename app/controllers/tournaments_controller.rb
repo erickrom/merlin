@@ -1,4 +1,4 @@
-class TournamentsController < ApplicationController
+class TournamentsController < SessionRequiredController
   def new
     @user = current_user
     @leagues = ResultadosFutbol.get_current_leagues

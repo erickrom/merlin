@@ -25,7 +25,7 @@ describe "Authentication" do
       let(:user) { create(:user) }
 
       before do
-        sign_in(user)
+        sign_in_user(user)
       end
 
       it "shows the user as signed in" do
@@ -48,7 +48,7 @@ describe "Authentication" do
 
     before do
       visit signin_path
-      sign_in(user)
+      sign_in_user(user)
     end
 
     it "doesn't let you look at other user's page" do

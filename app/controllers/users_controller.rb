@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < SessionRequiredController
   skip_before_action :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:show]
 
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in @user
+      sign_in_user @user
       flash[:success] = "#{@user.first_name}, Welcome to Futbol Merlin!"
       redirect_to @user
     else
@@ -24,8 +24,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    #@all_users = User.where.not(id: current_user.id)
-    @users = User.paginate(page: params[:page])
+    #@users = User.where.not(id: current_user.id)
+    @users = User.order(:first_name).page params[:page]
+    #@users = User.paginate(page: params[:page])
   end
 
   private

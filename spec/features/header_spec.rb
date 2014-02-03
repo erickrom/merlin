@@ -8,7 +8,7 @@ describe "Header" do
 
     before do
       visit signin_path
-      sign_in(user)
+      sign_in_user(user)
     end
 
     it "shows the right links" do

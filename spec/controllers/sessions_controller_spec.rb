@@ -53,7 +53,7 @@ describe SessionsController do
 
   describe "DELETE destroy" do
     before do
-      sign_in user
+      sign_in_user user
     end
 
     def make_request

@@ -15,7 +15,7 @@ describe TournamentsController do
       let(:user) { create(:user) }
 
       before do
-        sign_in user
+        sign_in_user user
       end
 
       it "shows the New Tournament page" do
