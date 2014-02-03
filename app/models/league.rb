@@ -1,4 +1,5 @@
 class League < ActiveRecord::Base
+  validates_uniqueness_of :external_id
 
   class << self
     def save_leagues_from_json(json_payload)
@@ -16,9 +17,9 @@ class League < ActiveRecord::Base
     private
 
     def create_from_json(json_league)
-      League.new(
-        name: json_league["name"],
-        external_id: json_league["id"].to_i,
+      league = League.where(external_id: json_league["id"].to_i).first_or_initialize
+      league.name = json_league["name"] unless league.name.present?
+      league.update_attributes(
         year: json_league["year"].to_i,
         group_code: json_league["group_code"].to_i,
         playoff: json_league["playoff"] == "1",
@@ -27,7 +28,7 @@ class League < ActiveRecord::Base
         total_rounds: json_league["total_rounds"].to_i,
         flag_url_path: json_league["flag"]
       )
+      league
     end
-
   end
 end
