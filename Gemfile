@@ -22,6 +22,7 @@ end
 group :test do
   gem 'capybara', '2.1.0'
   gem 'factory_girl_rails'
+  gem 'launchy'
   gem 'selenium-webdriver', '2.35.1'
   gem 'shoulda-matchers'
   gem 'timecop'

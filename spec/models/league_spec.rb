@@ -69,7 +69,6 @@ describe League do
         expect(league.total_group).to eq(8)
         expect(league.total_rounds).to eq(6)
         expect(league.flag_url_path).to eq('/media/img/flags/44x27/ue.png')
-
       end
     end
   end

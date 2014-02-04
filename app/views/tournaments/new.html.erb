@@ -1,7 +1,16 @@
 <h2>Create a New Tournament!</h2>
 
-<div>
-  <% @leagues.each do |league| %>
-    <div class="league"><%= league.name %></div>
-  <% end %>
-</div>
+<%= form_for(@tournament) do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name%>
+  <div id="leagues">
+    <% @leagues.each do |league| %>
+      <%= f.radio_button :league, league.id %>
+      <%= f.label :league, "#{league.name}" %>
+    <% end %>
+  </div>
+  <%= f.submit "Create New Tournament!", class: "btn btn-large btn-primary" %>
+<% end %>
+
+
+

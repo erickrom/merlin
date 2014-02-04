@@ -5,5 +5,6 @@ describe Tournament do
 
   describe "associations" do
     it { should belong_to :user }
+    it { should belong_to :league }
   end
 end

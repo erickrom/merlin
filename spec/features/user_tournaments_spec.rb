@@ -44,13 +44,23 @@ describe "User Tournaments" do
   describe "creating a new tournament" do
     before do
       visit user_path(user)
+      click_link 'New Tournament'
     end
 
     it "shows the available leagues" do
-      click_link 'New Tournament'
-
       expect(page).to have_content(league_1.name)
       expect(page).to have_content(league_2.name)
+    end
+
+    it "let's you create a new tournament" do
+      fill_in "Name", :with => 'My First Tournament'
+      within("#leagues") do
+        choose("tournament_league_#{league_1.id}")
+      end
+
+      click_button 'Create New Tournament!'
+
+      expect(page).to have_content("Created New Tournament My First Tournament")
     end
   end
 end

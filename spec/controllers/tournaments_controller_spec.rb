@@ -34,4 +34,26 @@ describe TournamentsController do
       end
     end
   end
+
+  describe "POST create" do
+    let(:user) { create(:user) }
+    let(:params) { {"tournament"=>{"name"=>"My First Tournament", "league"=>"1"}} }
+
+    before do
+      sign_in_user user
+    end
+
+    def make_request
+      post :create, params
+    end
+
+    it "creates a new tournament" do
+      expect{ make_request }.to change { Tournament.count }.by(1)
+    end
+
+    it "shows the success flash message" do
+      make_request
+      expect(flash[:success]).to eq("Created New Tournament My First Tournament")
+    end
+  end
 end

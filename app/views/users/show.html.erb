@@ -1,9 +1,10 @@
 <% provide(:page_title, @user.first_name) %>
 
+<%= link_to "New Tournament", new_tournament_path, class: "btn btn-primary btn-sm" %>
+
 <% tournaments = @user.tournaments
    if tournaments.count == 0 %>
   <div>You aren't playing any tournaments yet</div>
-  <%= link_to "New Tournament", new_tournament_path, class: "btn btn-primary btn-sm" %>
 <% else
     tournaments.each do |tournament| %>
   <div class="tournament_summary">
