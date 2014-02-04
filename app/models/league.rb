@@ -26,7 +26,7 @@ class League < ActiveRecord::Base
         current_round: json_league["current_round"].to_i,
         total_group: json_league["total_group"].to_i,
         total_rounds: json_league["total_rounds"].to_i,
-        flag_url_path: json_league["flag"]
+        flag_url_path: Settings.results_api.host + json_league["flag"]
       )
       league
     end

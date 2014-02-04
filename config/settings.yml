@@ -1,4 +1,4 @@
 # Results Service API details
 results_api:
-  host: 'http://www.resultados-futbol.com/scripts/api/api.php'
+  host: 'http://www.resultados-futbol.com'
   key: '259bcb52ae9c48daae34c0cbef30f244'

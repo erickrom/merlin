@@ -39,7 +39,7 @@ describe League do
       expect(league.current_round).to eq(6)
       expect(league.total_group).to eq(8)
       expect(league.total_rounds).to eq(6)
-      expect(league.flag_url_path).to eq('/media/img/flags/44x27/ue.png')
+      expect(league.flag_url_path).to eq("#{Settings.results_api.host}/media/img/flags/44x27/ue.png")
     end
 
     context "when called again" do
@@ -54,7 +54,7 @@ describe League do
         expect(league.current_round).to eq(6)
         expect(league.total_group).to eq(8)
         expect(league.total_rounds).to eq(6)
-        expect(league.flag_url_path).to eq('/media/img/flags/44x27/ue.png')
+        expect(league.flag_url_path).to eq("#{Settings.results_api.host}/media/img/flags/44x27/ue.png")
 
         league.update_attributes!(name: 'La Champions League')
 
@@ -68,7 +68,7 @@ describe League do
         expect(league.current_round).to eq(6)
         expect(league.total_group).to eq(8)
         expect(league.total_rounds).to eq(6)
-        expect(league.flag_url_path).to eq('/media/img/flags/44x27/ue.png')
+        expect(league.flag_url_path).to eq("#{Settings.results_api.host}/media/img/flags/44x27/ue.png")
       end
     end
   end

@@ -30,7 +30,7 @@ class ResultadosFutbol
     end
 
     def url
-      "#{Settings.results_api.host}"
+      "#{Settings.results_api.host}/scripts/api/api.php"
     end
 
     def connection
