@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
   #skip_before_action :signed_in_user, only: [:new, :create, :destroy]
 
   def create
