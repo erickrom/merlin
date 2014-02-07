@@ -1,4 +1,6 @@
 class TournamentsController < SessionRequiredController
+  before_filter :check_user_in_tournament, only: [:show]
+
   def new
     @user = current_user
     @leagues = ResultadosFutbol.get_current_leagues
@@ -14,6 +16,13 @@ class TournamentsController < SessionRequiredController
   end
 
   def show
+  end
 
+  private
+
+  def check_user_in_tournament
+    @tournament = Tournament.where(id: params[:id]).first
+    user = current_user
+    redirect_to user_path(current_user) unless @tournament.is_user_in_tournament?(user)
   end
 end
