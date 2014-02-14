@@ -1,1 +1,48 @@
+<% previous_round = @current_round == 1 ? 1 : @current_round - 1%>
+<% next_round = @current_round == @rounds ? @rounds : @current_round + 1%>
+
 <h1><%= @tournament.name %></h1>
+<h2><%= @tournament.league.name %></h2>
+
+<ul class="pagination">
+  <li><a href="<%= tournament_path(@tournament) %>?round=<%= previous_round %>">&laquo;</a></li>
+  <% if @rounds <= 8 %>
+    <% for round in 1..@rounds %>
+      <li class="<%= 'active' if @current_round == round %>">
+        <a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+    <% end %>
+  <% else %>
+    <% if @current_round <= 4 %>
+      <% for round in 1..4 %>
+        <li class="<%= 'active' if @current_round == round %>">
+          <a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+      <% end %>
+      <li class="disabled"><a>...</a></li>
+      <% for round in @rounds-3..@rounds %>
+        <li class="<%= 'active' if @current_round == round %>">
+          <a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+      <% end %>
+    <% else %>
+      <% if @current_round <= @rounds - 3 %>
+        <li><a href="<%= tournament_path(@tournament) %>?round=1">Round 1</a></li>
+        <li class="disabled"><a>...</a></li>
+        <% for round in @current_round-1..@current_round+1 %>
+          <li class="<%= 'active' if @current_round == round %>">
+            <a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+        <% end %>
+        <li class="disabled"><a>...</a></li>
+        <li><a href="<%= tournament_path(@tournament) %>?round=<%= @rounds %>">Round <%= @rounds %></a></li>
+      <% else %>
+        <% for round in 1..4 %>
+          <li><a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+        <% end %>
+        <li class="disabled"><a>...</a></li>
+        <% for round in @rounds-3..@rounds %>
+          <li class="<%= 'active' if @current_round == round %>">
+            <a href="<%= tournament_path(@tournament) %>?round=<%= round %>">Round <%= round %></a></li>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <li><a href="<%= tournament_path(@tournament) %>?round=<%= next_round %>">&raquo;</a></li>
+</ul>

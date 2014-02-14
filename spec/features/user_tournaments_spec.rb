@@ -35,8 +35,8 @@ describe "User Tournaments" do
 
       it "shows the tournaments summary" do
         visit user_path(user)
-        expect(page).to have_content(tournament_1.name)
-        expect(page).to have_content(tournament_2.name)
+        expect(page).to have_link(tournament_1.name, href: tournament_path(tournament_1))
+        expect(page).to have_link(tournament_2.name, href: tournament_path(tournament_2))
       end
     end
   end

@@ -8,7 +8,7 @@
 <% else
     tournaments.each do |tournament| %>
   <div class="tournament_summary">
-    <h3><%=tournament.name%></h3>
+    <h3><%= link_to tournament.name, tournament_path(tournament) %></h3>
   </div>
   <% end %>
 <% end %>

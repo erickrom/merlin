@@ -16,6 +16,8 @@ class TournamentsController < SessionRequiredController
   end
 
   def show
+    @rounds = @tournament.league.total_rounds
+    @current_round = params[:round].present? ? params[:round].to_i : @tournament.league.current_round
   end
 
   private
