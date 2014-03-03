@@ -11,6 +11,11 @@ class ResultadosFutbol
       end
     end
 
+    def get_matches(league, group, round)
+      response = fetch_matches(league, group, round)
+      response.body
+    end
+
     private
 
     def get_leagues_from_db
@@ -27,6 +32,13 @@ class ResultadosFutbol
 
       League.save_leagues_from_json(response.body)
       get_leagues_from_db
+    end
+
+    def fetch_matches(league, group, round)
+      params = "?key=#{Settings.results_api.key}&format=json&req=matchs&league=#{league}"
+      params = params + "&round=#{round}" if round.present?
+      params = params + "&group=#{group}" if group.present?
+      connection.get(params)
     end
 
     def url

@@ -63,7 +63,14 @@ describe TournamentsController do
   end
 
   describe "GET show" do
-    let(:tournament) { create(:tournament) }
+    let(:tournament) { create(:tournament, user: user) }
+    let!(:match_1) { create(:match, league: tournament.league) }
+    let(:group) { 1 }
+    let(:round) { tournament.league.current_round }
+
+    before do
+      MatchFetcher.stub(:get_matches).with(tournament.league, group, round).and_return([match_1])
+    end
 
     def make_request
       get :show, id: tournament.id
@@ -74,9 +81,47 @@ describe TournamentsController do
         sign_in_user user
       end
 
-      it "assigns the tournament" do
+      it "assigns the tournament and rounds data" do
         make_request
         expect(assigns(:tournament)).to eq(tournament)
+        expect(assigns(:rounds)).to eq(tournament.league.total_rounds)
+        expect(assigns(:current_round)).to eq(tournament.league.current_round)
+      end
+
+      context "when the group param is not passed" do
+        it "assigns the group" do
+          make_request
+          expect(assigns(:group)).to eq(1)
+        end
+      end
+
+      context "when the group param is passed" do
+        context "when the group is valid" do
+          it "assigns the group" do
+            MatchFetcher.stub(:get_matches).with(tournament.league, 2, round).and_return([match_1])
+            get :show, id: tournament.id, group: 2
+            expect(assigns(:group)).to eq(2)
+          end
+        end
+
+        context "when the group is not valid" do
+          it "assigns the group to 1" do
+            get :show, id: tournament.id, group: 100
+            expect(assigns(:group)).to eq(1)
+          end
+        end
+      end
+
+      describe "matches" do
+        it "calls the MatchFetcher" do
+          MatchFetcher.should_receive(:get_matches).with(tournament.league, group, round).and_return([match_1])
+          make_request
+        end
+
+        it "assigns the matches" do
+          make_request
+          expect(assigns(:matches)).to eq([match_1])
+        end
       end
     end
 

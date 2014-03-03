@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204043907) do
+ActiveRecord::Schema.define(version: 20140216023752) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -55,6 +55,21 @@ ActiveRecord::Schema.define(version: 20140204043907) do
   end
 
   add_index "leagues", ["year"], name: "index_leagues_on_year"
+
+  create_table "matches", force: true do |t|
+    t.integer  "league_id"
+    t.integer  "group"
+    t.integer  "round"
+    t.string   "local"
+    t.string   "visitor"
+    t.string   "local_shield"
+    t.string   "visitor_shield"
+    t.datetime "schedule"
+    t.integer  "local_goals"
+    t.integer  "visitor_goals"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"

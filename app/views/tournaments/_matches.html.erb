@@ -1,0 +1,8 @@
+<div id="matches_container">
+  <% @matches.each do |match| %>
+    <div class="match">
+      <span class="local"><%= match.local %></span><span class="score"> <%= match.local_goals %> </span>
+      <span class="score"> <%= match.visitor_goals %> </span><span class="visitor"><%= match.visitor %></span>
+    </div>
+  <% end %>
+</div>

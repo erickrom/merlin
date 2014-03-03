@@ -18,6 +18,9 @@ class TournamentsController < SessionRequiredController
   def show
     @rounds = @tournament.league.total_rounds
     @current_round = params[:round].present? ? params[:round].to_i : @tournament.league.current_round
+    @group = params[:group].present? && params[:group].to_i <= @tournament.league.total_group ? params[:group].to_i : 1
+    @total_group = @tournament.league.total_group
+    @matches = MatchFetcher.get_matches(@tournament.league, @group, @current_round)
   end
 
   private

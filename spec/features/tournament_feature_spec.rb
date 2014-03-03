@@ -6,6 +6,12 @@ describe "Tournament Page" do
   let(:user) { create(:user) }
   let(:league) { create(:league) }
   let(:tournament) { create(:tournament, league: league, user: user) }
+  let(:match_1) { create(:match, league: league, round: league.current_round,
+                         local: 'Milan', visitor: 'Ajax', local_goals: 0, visitor_goals: 0) }
+
+  before do
+    MatchFetcher.stub(:get_matches).and_return([match_1])
+  end
 
   context "for a user not in the tournament" do
     let!(:user_not_in_tournament) { create(:user) }
@@ -34,11 +40,14 @@ describe "Tournament Page" do
         expect(page).to have_content(tournament.league.name)
       end
 
-      xit "shows the matches for the current round" do
+      it "shows the matches for the current round" do
         visit tournament_path(tournament)
         expect(page).to have_select('group', selected: 'Group 1')
 
-        #expect(page).to have_content
+        expect(page).to have_content(match_1.local)
+        expect(page).to have_content(match_1.visitor)
+        expect(page).to have_content(match_1.local_goals)
+        expect(page).to have_content(match_1.visitor_goals)
       end
 
       describe "the tournament nav links" do
@@ -76,7 +85,6 @@ describe "Tournament Page" do
         context "when we have more than 8 total rounds" do
           before do
             league.update_attributes!(total_rounds: 10)
-            puts "leage total rounds: #{league.total_rounds}"
             visit tournament_path(tournament)
           end
 
@@ -89,7 +97,6 @@ describe "Tournament Page" do
           context "when the current round is more than 4 but less than total-3" do
             before do
               league.update_attributes!(current_round: 5)
-              puts "current round: #{league.current_round}"
               visit tournament_path(tournament)
             end
             it_should_behave_like "visible round links", 1, 1
@@ -102,7 +109,6 @@ describe "Tournament Page" do
           context "when the current round is between total-3 and total" do
             before do
               league.update_attributes!(current_round: 8)
-              puts "current round: #{league.current_round}"
               visit tournament_path(tournament)
             end
             it_should_behave_like "visible round links", 1, 4

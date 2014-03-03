@@ -56,7 +56,7 @@ describe ResultadosFutbol do
 
       it "updates the leagues in the db" do
         Timecop.freeze(current_time) do
-          expect { ResultadosFutbol.get_current_leagues }.to change{League.count}
+          expect { ResultadosFutbol.get_current_leagues }.to change { League.count }
         end
       end
 
@@ -75,6 +75,23 @@ describe ResultadosFutbol do
           expect(ResultadosFutbol.get_current_leagues).to eq([this_year_league, next_year_league])
         end
       end
+    end
+  end
+
+  describe "#get_matches" do
+    let(:league) { create(:league) }
+    let(:round) { 2 }
+    let(:group) { 1 }
+
+    before do
+      stub_matches_request(200, league: league.external_id, round: round, group: group)
+    end
+
+    subject { described_class.get_matches(league.external_id, group, round) }
+
+    it "makes a request to resultados futbol for matches" do
+      subject
+      expect_matches_request(league: league.external_id, round: round, group: group)
     end
   end
 end

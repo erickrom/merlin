@@ -43,6 +43,7 @@ describe "User Tournaments" do
 
   describe "creating a new tournament" do
     before do
+      MatchFetcher.stub(:get_matches).and_return([create(:match)])
       visit user_path(user)
       click_link 'New Tournament'
     end
