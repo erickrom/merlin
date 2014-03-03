@@ -80,8 +80,8 @@ describe ResultadosFutbol do
 
   describe "#get_matches" do
     let(:league) { create(:league) }
-    let(:round) { 2 }
-    let(:group) { 1 }
+    let(:round) { 3 }
+    let(:group) { 2 }
 
     before do
       stub_matches_request(200, league: league.external_id, round: round, group: group)
