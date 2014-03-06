@@ -31,6 +31,11 @@ describe TournamentsController do
       make_request.should render_template('tournaments/new')
     end
 
+    it "calls the league fetcher" do
+      LeagueFetcher.should_receive(:get_leagues).and_return([league_1, league_2])
+      make_request
+    end
+
     it "assigns the available leagues" do
       make_request
       expect(assigns(:leagues)).to eq([league_1, league_2])

@@ -3,7 +3,7 @@ class TournamentsController < SessionRequiredController
 
   def new
     @user = current_user
-    @leagues = ResultadosFutbol.get_current_leagues
+    @leagues = LeagueFetcher.get_leagues
     @tournament = Tournament.new
   end
 
