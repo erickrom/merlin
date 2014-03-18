@@ -23,8 +23,8 @@ class Match < ActiveRecord::Base
                           local: json["local"], visitor: json["visitor"]).first_or_initialize
       match.update_attributes(local_shield: json["local_shield"], visitor_shield: json["visitor_shield"],
                                 schedule: DateTime.parse(json["schedule"]),
-                                local_goals: json["local_goals"].to_i,
-                                visitor_goals: json["visitor_goals"].to_i)
+                                local_goals: json["local_goals"],
+                                visitor_goals: json["visitor_goals"])
       match
     end
   end

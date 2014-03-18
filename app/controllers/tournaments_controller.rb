@@ -1,6 +1,8 @@
 class TournamentsController < SessionRequiredController
   before_filter :check_user_in_tournament, only: [:show]
 
+  layout "user_main"
+
   def new
     @user = current_user
     @leagues = LeagueFetcher.get_leagues

@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20140216023752) do
     t.string   "local_shield"
     t.string   "visitor_shield"
     t.datetime "schedule"
-    t.integer  "local_goals"
-    t.integer  "visitor_goals"
+    t.string   "local_goals"
+    t.string   "visitor_goals"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
