@@ -1,14 +1,15 @@
-<h1><%= @tournament.name %></h1>
-<h2><%= @tournament.league.name %></h2>
+<h3><%= @tournament.name %> <span class="label label-default"><%= @tournament.league.name %></span></h3>
 
 <%= render 'round_links' %>
-<div style="width:200px">
-  <select id='group' class="form-control" onchange="location.href = this.options[this.selectedIndex].value">
-    <% for group in 1..@total_group %>
-      <option <%= 'selected' if @group == group %> value="<%= tournament_path(@tournament) %>?group=<%= group %>&round=<%= @current_round %>">Group <%= group %></option>
-    <% end %>
-  </select>
-</div>
+<% if @total_group > 1 %>
+  <div class="group-select">
+    <select id='group' class="form-control" onchange="location.href = this.options[this.selectedIndex].value">
+      <% for group in 1..@total_group %>
+        <option <%= 'selected' if @group == group %> value="<%= tournament_path(@tournament) %>?group=<%= group %>&round=<%= @current_round %>">Group <%= group %></option>
+      <% end %>
+    </select>
+  </div>
+<% end %>
 
 <%= render 'matches' %>
 
