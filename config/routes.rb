@@ -13,6 +13,7 @@ Merlin::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :tournaments
+  resources :predictions
 
   #Home Pages
   get '/home' => 'home#home'

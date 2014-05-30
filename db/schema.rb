@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140216023752) do
+ActiveRecord::Schema.define(version: 20140530174601) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -70,6 +70,19 @@ ActiveRecord::Schema.define(version: 20140216023752) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "predictions", force: true do |t|
+    t.integer  "tournament_id"
+    t.integer  "user_id"
+    t.integer  "match_id"
+    t.integer  "local_goals"
+    t.integer  "visitor_goals"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "predictions", ["tournament_id", "match_id"], name: "index_predictions_on_tournament_and_match"
+  add_index "predictions", ["tournament_id"], name: "index_predictions_on_tournament_id"
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"

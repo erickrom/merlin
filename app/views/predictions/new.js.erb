@@ -1,0 +1,4 @@
+$('#prediction_<%= @match_id %>').text("Save Prediction");
+prediction_containter_id = '<%= "#match_#{@match_id}_predictions .my_prediction" %>'
+$(prediction_containter_id).addClass('adding_prediction')
+$(prediction_containter_id).append('<%= j render("prediction_form") %>')
