@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Adding predictions to a tournament", js: true do
+describe 'Adding predictions to a tournament', js: true do
   include FeatureSpecHelpers
 
   let(:user) { create(:user) }
@@ -27,15 +27,18 @@ describe "Adding predictions to a tournament", js: true do
     page.should have_css("#prediction_match_#{match.id}_visitor_goals")
   end
 
-  def expect_page_to_show_prediction_for(prediction_id)
-    #page.should have_text('My Prediction')
+  def expect_page_to_show_prediction_for(prediction)
+    page.should have_text('My Prediction')
+    #page.should have_selector('#my_prediction td', text: 'My Prediction')
+    #page.should have_selector('#my_prediction td', text: 'My Prediction')
+    #page.should have_selector('#my_prediction td', text: 'My Prediction')
   end
 
-  context "when the tournament has no prediction for the current user" do
-    it "allows the user to enter a prediction" do
+  context 'when the tournament has no prediction for the current user' do
+    it 'allows the user to enter a prediction' do
       visit tournament_path(tournament)
 
-      expect(page).to have_content("Add Prediction")
+      expect(page).to have_content('Add Prediction')
       expect_page_to_not_show_prediction_form_for_match(match_1)
       expect_page_to_not_show_prediction_form_for_match(match_2)
 
@@ -50,7 +53,8 @@ describe "Adding predictions to a tournament", js: true do
         #expect { click_on "Save Prediction" }.to change { Prediction.count }.by(1)
         click_on 'Save Prediction'
 
-        expect_page_to_show_prediction_for(match_1)
+        last_prediction = Prediction.last
+        expect_page_to_show_prediction_for(last_prediction)
       end
     end
   end

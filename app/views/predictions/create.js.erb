@@ -1,0 +1,7 @@
+//Append prediction to list of predictions
+$("#edit_prediction_match_<%= @prediction.match.id %>").remove();
+$('#cancel_prediction_<%= @prediction.match.id %>').remove();
+$('#edit_prediction_<%= @prediction.match.id %>').show();
+
+$('#match_<%= @prediction.match.id %>_predictions').prepend('<%= j render partial: "prediction", object: @prediction %>');
+

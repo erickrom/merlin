@@ -11,6 +11,5 @@ $('#edit_button_<%= @match_id %>_cont').append("<div id='cancel_prediction_<%= @
 $('#cancel_prediction_<%= @match_id %>').bind('click', function() { cancelPredictionBehavior(<%= @match_id %>); });
 
 
-//prediction_containter_id = '<%= "#match_#{@match_id}_predictions" %>';
 prediction_containter_id = '<%= "#teams_match_#{@match_id}" %>';
 $(prediction_containter_id).after('<%= j render("prediction_form") %>');

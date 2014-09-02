@@ -8,12 +8,6 @@
   width: 200px;
 }
 
-.adding_prediction {
-  border-style: solid;
-  border-width: 5px;
-  border-color: gray;
-}
-
 // Prediction form
 .predictions_table tbody tr td {
   width: 300px;
@@ -23,5 +17,9 @@
   width: 30px;
 }
 
-.prediction_form {
+.my_prediction {
+  border-style: solid;
+  border-width: 5px;
+  border-color: gray;
+  padding-left: 20px;
 }
