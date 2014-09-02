@@ -1,4 +1,16 @@
-$('#prediction_<%= @match_id %>').text("Save Prediction");
-prediction_containter_id = '<%= "#match_#{@match_id}_predictions .my_prediction" %>'
-$(prediction_containter_id).addClass('adding_prediction')
-$(prediction_containter_id).append('<%= j render("prediction_form") %>')
+//Add Cancel Functionality
+function cancelPredictionBehavior(match_id) {
+  console.log('cancel called for match id ' + match_id )
+  $('#edit_prediction_' + match_id).show();
+  $('#edit_prediction_match_' + match_id).remove();
+  $('#cancel_prediction_' + match_id).remove();
+};
+
+$('#edit_prediction_<%= @match_id %>').hide();
+$('#edit_button_<%= @match_id %>_cont').append("<div id='cancel_prediction_<%= @match_id %>' class='btn btn-danger btn-xs'>Cancel</div>");
+$('#cancel_prediction_<%= @match_id %>').bind('click', function() { cancelPredictionBehavior(<%= @match_id %>); });
+
+
+//prediction_containter_id = '<%= "#match_#{@match_id}_predictions" %>';
+prediction_containter_id = '<%= "#teams_match_#{@match_id}" %>';
+$(prediction_containter_id).after('<%= j render("prediction_form") %>');

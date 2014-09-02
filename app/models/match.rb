@@ -1,6 +1,8 @@
 class Match < ActiveRecord::Base
   belongs_to :league
 
+  has_many :predictions, dependent: :destroy
+
   class << self
     def save_from_json(json, league_id)
       json_object = JSON.parse(json)

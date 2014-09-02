@@ -14,6 +14,7 @@ describe Match do
 
   describe "associations" do
     it { should belong_to :league }
+    it { should have_many(:predictions).dependent(:destroy) }
   end
 
   describe "#save_from_json" do
