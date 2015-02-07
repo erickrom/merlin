@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe LeagueFetcher do
   let(:current_time) { Time.now.utc }
-  let!(:last_year_league) { create(:league, year: 2013) }
-  let!(:this_year_league) { create(:league, year: 2014) }
-  let!(:two_years_ago_league) { create(:league, year: 2012) }
-  let!(:next_year_league) { create(:league, year: 2015) }
+  let!(:last_year_league) { create(:league, year: Time.now.year - 1) }
+  let!(:this_year_league) { create(:league, year: Time.now.year) }
+  let!(:two_years_ago_league) { create(:league, year: Time.now.year - 2) }
+  let!(:next_year_league) { create(:league, year: Time.now.year + 1) }
 
   describe "#get_leagues" do
     context "when we have fetched league data in the last hour" do

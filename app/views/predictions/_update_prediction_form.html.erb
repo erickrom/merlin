@@ -1,0 +1,13 @@
+<div id="edit_prediction_match_<%= @match_id %>" class="my_prediction">
+  <%= form_for @prediction, url: prediction_path(@prediction), html: {method: 'patch', class: 'prediction_form'}, remote: true do |f| %>
+    Edit my prediction
+    <%= f.hidden_field :tournament_id %>
+    <%= f.hidden_field :match_id %>
+    <%= f.label :local_goals, 'Local' %>
+    <%= f.text_field :local_goals, id: "prediction_match_#{@match_id}_local_goals", class: "prediction_input_txt" %>
+
+    <%= f.label :visitor_goals, 'Visitor' %>
+    <%= f.text_field :visitor_goals, id: "prediction_match_#{@match_id}_visitor_goals", class: "prediction_input_txt" %>
+    <%= f.submit 'Save Prediction', class: "btn btn-primary btn-xs" %>
+  <% end %>
+</div>

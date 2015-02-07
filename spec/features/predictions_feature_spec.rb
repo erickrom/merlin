@@ -28,10 +28,9 @@ describe 'Adding predictions to a tournament', js: true do
   end
 
   def expect_page_to_show_prediction_for(prediction)
-    page.should have_text('My Prediction')
-    #page.should have_selector('#my_prediction td', text: 'My Prediction')
-    #page.should have_selector('#my_prediction td', text: 'My Prediction')
-    #page.should have_selector('#my_prediction td', text: 'My Prediction')
+    page.should have_css("#my_prediction_match_#{prediction.match.id}", count: 1)
+    page.should have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.local_goals)
+    page.should have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.visitor_goals)
   end
 
   context 'when the tournament has no prediction for the current user' do
@@ -50,12 +49,51 @@ describe 'Adding predictions to a tournament', js: true do
         fill_in 'prediction[local_goals]', with: '1'
         fill_in 'prediction[visitor_goals]', with: '2'
 
-        #expect { click_on "Save Prediction" }.to change { Prediction.count }.by(1)
         click_on 'Save Prediction'
-
-        last_prediction = Prediction.last
-        expect_page_to_show_prediction_for(last_prediction)
       end
+
+      expect(page).to have_content 'Prediction saved successfully'
+
+      page.should have_text(user.first_name)
+
+      last_prediction = Prediction.last
+      expect_page_to_show_prediction_for(last_prediction)
+    end
+  end
+
+  context 'when the tournament has a prediction for the user' do
+    let!(:prediction) { create(:prediction, user: user, tournament: tournament, match: match_1) }
+
+    it 'shows the predictions' do
+      visit tournament_path(tournament)
+
+      expect_page_to_show_prediction_for(prediction)
+    end
+
+    it 'allows the user to edit their prediction' do
+      visit tournament_path(tournament)
+
+      page.within "#match_#{match_1.id}" do
+        expect(page).to have_text('Edit Prediction')
+
+        click_on 'Edit Prediction'
+        #expect(page).to have_text('Save Prediction')
+
+        fill_in 'prediction[local_goals]', with: '4'
+        fill_in 'prediction[visitor_goals]', with: '3'
+
+        click_on 'Save Prediction'
+      end
+
+      expect(page).to have_content 'Prediction saved successfully'
+
+      page.should have_content(user.first_name)
+
+      expect_page_to_show_prediction_for(prediction.reload)
+
+      expect(prediction.local_goals).to eq 4
+      expect(prediction.visitor_goals).to eq 3
+      expect_page_to_show_prediction_for(prediction)
     end
   end
 end

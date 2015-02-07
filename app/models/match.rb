@@ -3,6 +3,14 @@ class Match < ActiveRecord::Base
 
   has_many :predictions, dependent: :destroy
 
+  def predictions_for_tournament(tournament)
+    Prediction.where(tournament: tournament, match: self)
+  end
+
+  def get_prediction_for(user, tournament)
+    Prediction.find_by(user: user, match: self, tournament: tournament)
+  end
+
   class << self
     def save_from_json(json, league_id)
       json_object = JSON.parse(json)

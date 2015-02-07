@@ -5,4 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-AppSetting.first_or_create(name: 'last_league_fetch').update_attributes!(value: 1.hour.ago)
+AppSetting.where(name: 'last_league_fetch').first_or_create(value: 1.hour.ago)
+AppSetting.where(name: 'seconds_to_fetch_matches').first_or_create(value: 300)

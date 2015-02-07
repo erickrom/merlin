@@ -57,4 +57,34 @@ describe PredictionsController do
       expect(last_prediction.tournament).to eq(tournament)
     end
   end
+
+  describe 'PATCH update' do
+    let(:tournament) { create(:tournament) }
+    let(:match) { create(:match, league: tournament.league) }
+    let(:prediction) { create(:prediction, user: user, match: match, tournament: tournament,
+                              local_goals: 1, visitor_goals: 3) }
+    let(:params) {
+      {
+        "prediction"=>
+          {"tournament_id"=>"#{tournament.id}", "match_id"=>"#{match.id}", "local_goals"=>"2", "visitor_goals"=>"1"},
+        "id"=>"#{prediction.id}"}
+    }
+
+    before do
+      request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
+    end
+
+    def make_request
+      patch :update, params
+    end
+
+    it_behaves_like 'an action that requires a signed-in user'
+
+    it 'updates a prediction' do
+      make_request
+
+      expect(prediction.reload.local_goals).to eq(2)
+      expect(prediction.visitor_goals).to eq(1)
+    end
+  end
 end

@@ -16,6 +16,8 @@ gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'bootstrap-select-rails', '~> 1.3.0.1'
 
+gem 'unobtrusive_flash', '>=3'
+
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'sqlite3', '1.3.8'

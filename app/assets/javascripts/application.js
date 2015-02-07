@@ -16,3 +16,7 @@
 //= require_tree .
 //= require bootstrap
 //= require bootstrap-select
+//= require unobtrusive_flash
+//= require unobtrusive_flash_bootstrap
+
+UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds

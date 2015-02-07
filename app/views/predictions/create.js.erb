@@ -2,6 +2,8 @@
 $("#edit_prediction_match_<%= @prediction.match.id %>").remove();
 $('#cancel_prediction_<%= @prediction.match.id %>').remove();
 $('#edit_prediction_<%= @prediction.match.id %>').show();
+$('#edit_prediction_<%= @prediction.match.id %>').text('Edit Prediction');
 
-$('#match_<%= @prediction.match.id %>_predictions').prepend('<%= j render partial: "prediction", object: @prediction %>');
+$('#my_prediction_match_<%= @prediction.match.id %>').remove();
 
+$('#match_<%= @prediction.match.id %>_predictions').prepend('<%= j render partial: 'prediction', object: @prediction %>');

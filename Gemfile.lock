@@ -200,6 +200,8 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    unobtrusive_flash (3.1.0)
+      railties
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.17.1)
@@ -240,4 +242,5 @@ DEPENDENCIES
   timecop
   turbolinks (= 1.1.1)
   uglifier
+  unobtrusive_flash (>= 3)
   webmock (~> 1.17.1)

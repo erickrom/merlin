@@ -13,5 +13,7 @@ describe Prediction do
     it { should validate_presence_of :user }
     it { should validate_presence_of :local_goals }
     it { should validate_presence_of :visitor_goals }
+
+    it { should validate_uniqueness_of(:user_id).scoped_to(:match_id) }
   end
 end

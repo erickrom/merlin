@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :league do
     sequence(:name)  { |n| "League #{n}" }
     sequence(:external_id)
-    year 2014
+    year Time.now.year
     sequence(:group_code)
     playoff false
     current_round 1

@@ -16,8 +16,15 @@
               <div class="local col-md-4"><%= match.local %></div>
               <div class="score col-md-2"> <%= match.local_goals %> - <%= match.visitor_goals %></div>
               <div class="visitor col-md-4"><%= match.visitor %></div>
-              <div id="edit_button_<%= match.id %>_cont"  class="col-md-2"><%= link_to "Add Prediction", "#{new_prediction_path}?match_id=#{match.id}&tournament_id=#{@tournament.id}",
-                                                id: "edit_prediction_#{match.id}", class: "btn btn-primary btn-xs", remote: true %></div>
+              <div id="edit_button_<%= match.id %>_cont" class="col-md-2">
+                <% my_prediction = match.get_prediction_for(current_user, @tournament)
+                   if my_prediction.present?
+                     button_text = 'Edit Prediction'
+                   else
+                     button_text = 'Add Prediction'
+                   end %>
+                <%= link_to button_text, "#{new_prediction_path}?match_id=#{match.id}&tournament_id=#{@tournament.id}",
+                            id: "edit_prediction_#{match.id}", class: "btn btn-primary btn-xs", remote: true %></div>
             </div>
             <div class="row" id="predictions_container">
               <div class="col-md-10 col-md-offset-1">
@@ -30,11 +37,13 @@
                   </tr>
                   </thead>
                   <tbody id="match_<%= match.id %>_predictions">
-                  <tr>
-                    <td>Larry</td>
-                    <td>3-0</td>
-                    <td>5</td>
-                  </tr>
+                  <% match.predictions_for_tournament(@tournament).each do |prediction| %>
+                    <tr id="my_prediction_match_<%= match.id %>">
+                      <td><%= prediction.user.first_name %></td>
+                      <td><%= prediction.local_goals %> - <%= prediction.visitor_goals %></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
                   </tbody>
                 </table>
               </div>

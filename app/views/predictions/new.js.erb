@@ -6,10 +6,18 @@ function cancelPredictionBehavior(match_id) {
   $('#cancel_prediction_' + match_id).remove();
 };
 
+//Hide the edit button
 $('#edit_prediction_<%= @match_id %>').hide();
+//Show the cancel button
 $('#edit_button_<%= @match_id %>_cont').append("<div id='cancel_prediction_<%= @match_id %>' class='btn btn-danger btn-xs'>Cancel</div>");
+//Bind the cancel functionality to the new button
 $('#cancel_prediction_<%= @match_id %>').bind('click', function() { cancelPredictionBehavior(<%= @match_id %>); });
 
 
 prediction_containter_id = '<%= "#teams_match_#{@match_id}" %>';
-$(prediction_containter_id).after('<%= j render("prediction_form") %>');
+
+<% if @prediction.id.nil? %>
+  $(prediction_containter_id).after('<%= j render('new_prediction_form') %>');
+<% else %>
+  $(prediction_containter_id).after('<%= j render( partial: 'update_prediction_form', object: @prediction) %>');
+<% end %>
