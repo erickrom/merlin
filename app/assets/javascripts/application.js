@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+//= require bootstrap-sprockets
 //= require bootstrap-select
 //= require unobtrusive_flash
 //= require unobtrusive_flash_bootstrap

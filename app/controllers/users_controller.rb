@@ -2,7 +2,7 @@ class UsersController < SessionRequiredController
   skip_before_action :signed_in_user, only: [:new, :create]
   before_filter :correct_user, only: [:show]
 
-  layout "user_main", except: [:index]
+  layout "user_main", except: [:index, :new, :create]
 
   def new
     @user = User.new

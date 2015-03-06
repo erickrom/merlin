@@ -12,8 +12,8 @@ gem 'rails_config'
 gem 'turbolinks', '1.1.1'
 gem 'uglifier'
 
-gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
-gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootstrap-sass', '~> 3.3.3'
+gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-select-rails', '~> 1.3.0.1'
 
 gem 'unobtrusive_flash', '>=3'
