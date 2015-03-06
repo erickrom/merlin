@@ -7,14 +7,22 @@ class MatchFetcher
 
       return db_matches if db_matches.present?
 
-      json_response = ResultadosFutbol.get_matches(league.external_id, group, round)
-      Match.save_from_json(json_response, league.id)
+      begin
+        json_response = ResultadosFutbol.get_matches(league.external_id, group, round)
+        Match.save_from_json(json_response, league.id)
+      rescue
+        get_db_matches(league, group, round)
+      end
     end
 
     private
 
+    def get_db_matches(league, group, round)
+      Match.where(league: league, group: group, round: round).order('updated_at DESC')
+    end
+
     def get_db_matches_if_recent(league, group, round)
-      db_matches = Match.where(league: league, group: group, round: round).order('updated_at DESC')
+      db_matches = get_db_matches(league, group, round)
 
       return nil if db_matches.empty?
 

@@ -24,9 +24,21 @@ describe MatchFetcher do
           match_2.update_attributes!(updated_at: 10.minutes.ago)
         end
 
-        it 'makes a request to get the matches' do
-          subject
-          expect_matches_request(league: league.external_id, group: group, round: round)
+        context 'and the service is up' do
+          it 'makes a request to get the matches' do
+            subject
+            expect_matches_request(league: league.external_id, group: group, round: round)
+          end
+        end
+
+        context 'and the service is down' do
+          before do
+            ResultadosFutbol.stub(:get_matches).and_raise(Faraday::ConnectionFailed, '')
+          end
+
+          it 'returns the matches from the database' do
+            expect(subject).to match_array([match_1, match_2])
+          end
         end
       end
 
