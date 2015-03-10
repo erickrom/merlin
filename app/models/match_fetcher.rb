@@ -8,7 +8,7 @@ class MatchFetcher
       return db_matches if db_matches.present?
 
       begin
-        json_response = ResultadosFutbol.get_matches(league.external_id, group, round)
+        json_response = get_matches_from_service(league, group, round)
         Match.save_from_json(json_response, league.id)
       rescue
         get_db_matches(league, group, round)
@@ -16,6 +16,10 @@ class MatchFetcher
     end
 
     private
+
+    def get_matches_from_service(league, group, round)
+      ResultadosFutbol.get_matches(league.external_id, group, round)
+    end
 
     def get_db_matches(league, group, round)
       Match.where(league: league, group: group, round: round).order('updated_at DESC')

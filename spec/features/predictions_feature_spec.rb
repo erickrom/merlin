@@ -35,7 +35,7 @@ describe 'Adding predictions to a tournament', js: true do
 
   context 'when the tournament has no prediction for the current user' do
     it 'allows the user to enter a prediction' do
-      visit tournament_path(tournament)
+      visit tournament_path(tournament.id)
 
       expect(page).to have_content('Add Prediction')
       expect_page_to_not_show_prediction_form_for_match(match_1)

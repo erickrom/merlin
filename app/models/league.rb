@@ -8,7 +8,7 @@ class League < ActiveRecord::Base
 
       League.transaction do
         leagues.each do |league|
-          league = create_from_json(league)
+          league = save_from_json(league)
           league.save!
         end
       end
@@ -16,7 +16,7 @@ class League < ActiveRecord::Base
 
     private
 
-    def create_from_json(json_league)
+    def save_from_json(json_league)
       league = League.where(external_id: json_league["id"].to_i).first_or_initialize
       league.name = json_league["name"] unless league.name.present?
       league.update_attributes(
@@ -26,7 +26,7 @@ class League < ActiveRecord::Base
         current_round: json_league["current_round"].to_i,
         total_group: json_league["total_group"].to_i,
         total_rounds: json_league["total_rounds"].to_i,
-        flag_url_path: Settings.results_api.host + json_league["flag"]
+        flag_url_path: json_league["flag"]
       )
       league
     end

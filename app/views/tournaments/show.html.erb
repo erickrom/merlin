@@ -1,4 +1,4 @@
-<h3><%= @tournament.name %> <span class="label label-default"><%= @tournament.league.name %></span></h3>
+<h3><img src="<%= @tournament.league.flag_url_path %>" class="league-flag"><span><%= @tournament.name %></span> <span class="label label-default"><%= @tournament.league.name %></span></h3>
 
 <%= render 'round_links' %>
 <% if @total_group > 1 %>

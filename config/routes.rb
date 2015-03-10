@@ -12,7 +12,7 @@ Merlin::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :tournaments
+  resources :tournaments, only: [:new, :show, :create]
   resources :predictions, only: [:new, :create, :update]
 
   #Home Pages

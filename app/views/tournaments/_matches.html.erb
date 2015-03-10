@@ -13,9 +13,9 @@
         <div class="row">
           <div class="col-md-12">
             <div class="row" id="teams_match_<%= match.id %>">
-              <div class="local col-md-4"><%= match.local %></div>
+              <img src="<%= match.local_shield %>" class="team-shield col-md-1"><div class="local col-md-3"><%= match.local %></div>
               <div class="score col-md-2"> <%= match.local_goals %> - <%= match.visitor_goals %></div>
-              <div class="visitor col-md-4"><%= match.visitor %></div>
+              <img src="<%= match.visitor_shield %>" class="team-shield col-md-1"><div class="visitor col-md-3"><%= match.visitor %></div>
               <div id="edit_button_<%= match.id %>_cont" class="col-md-2">
                 <% my_prediction = match.get_prediction_for(current_user, @tournament)
                    if my_prediction.present?
