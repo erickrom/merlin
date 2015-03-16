@@ -1,8 +1,6 @@
 class MatchFetcher
   class << self
     def get_matches(league, group, round)
-      group = league.total_group == 1 ? nil : group
-
       db_matches = get_db_matches_if_recent(league, group, round)
 
       return db_matches if db_matches.present?
@@ -18,6 +16,7 @@ class MatchFetcher
     private
 
     def get_matches_from_service(league, group, round)
+      group = league.total_group == 1 ? nil : group
       ResultadosFutbol.get_matches(league.external_id, group, round)
     end
 

@@ -73,7 +73,8 @@ describe MatchFetcher do
     it 'ommits the group param if theres only one' do
       league = create(:league, total_group: 1)
       stub_matches_request(200, league: league.external_id, round: round)
-      described_class.get_matches(league, 1, round)
+      matches = described_class.get_matches(league, 1, round)
+      expect(matches.count).to eq(2)
     end
   end
 end
