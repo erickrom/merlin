@@ -35,7 +35,7 @@ describe UsersController do
                              email: "", password: "", password_confirmation: ""}} }
 
       it "doesn't create a new user" do
-        expect { make_request }.not_to change { User.count }.by(1)
+        expect { make_request }.not_to change { User.count }
       end
 
       it "renders the new user page" do

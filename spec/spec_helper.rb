@@ -21,13 +21,8 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 Dir[Rails.root.join("spec/helpers/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
+
+  config.infer_spec_type_from_file_location!
 
   config.before(:all) {
     # Set the last league fetch to 5 minutes ago as default
@@ -69,7 +64,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    if example.metadata[:js]
+    if RSpec.current_example.metadata[:js]
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction

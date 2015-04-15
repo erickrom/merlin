@@ -19,12 +19,12 @@ gem 'bootstrap-select-rails', '~> 1.3.0.1'
 gem 'unobtrusive_flash', '>=3'
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails', '2.99'
   gem 'sqlite3', '1.3.8'
 end
 
 group :test do
-  gem 'capybara', '2.1.0'
+  gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

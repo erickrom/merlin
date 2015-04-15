@@ -35,7 +35,7 @@ describe League do
       expect(league.external_id).to eq(107)
       expect(league.year).to eq(2015)
       expect(league.group_code).to eq(1)
-      expect(league.playoff).to be_false
+      expect(league.playoff).to be_falsey
       expect(league.current_round).to eq(6)
       expect(league.total_group).to eq(8)
       expect(league.total_rounds).to eq(6)
@@ -50,7 +50,7 @@ describe League do
         expect(league.external_id).to eq(107)
         expect(league.year).to eq(2015)
         expect(league.group_code).to eq(1)
-        expect(league.playoff).to be_false
+        expect(league.playoff).to be_falsey
         expect(league.current_round).to eq(6)
         expect(league.total_group).to eq(8)
         expect(league.total_rounds).to eq(6)
@@ -64,7 +64,7 @@ describe League do
         expect(league.external_id).to eq(107)
         expect(league.year).to eq(2015)
         expect(league.group_code).to eq(1)
-        expect(league.playoff).to be_false
+        expect(league.playoff).to be_falsey
         expect(league.current_round).to eq(6)
         expect(league.total_group).to eq(8)
         expect(league.total_rounds).to eq(6)
