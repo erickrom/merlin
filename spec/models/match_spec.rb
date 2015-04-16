@@ -1,20 +1,20 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Match do
-  it { should respond_to(:group) }
-  it { should respond_to(:round) }
-  it { should respond_to(:local) }
-  it { should respond_to(:visitor) }
-  it { should respond_to(:visitor) }
-  it { should respond_to(:local_shield) }
-  it { should respond_to(:visitor_shield) }
-  it { should respond_to(:schedule) }
-  it { should respond_to(:local_goals) }
-  it { should respond_to(:visitor_goals) }
+  it { is_expected.to respond_to(:group) }
+  it { is_expected.to respond_to(:round) }
+  it { is_expected.to respond_to(:local) }
+  it { is_expected.to respond_to(:visitor) }
+  it { is_expected.to respond_to(:visitor) }
+  it { is_expected.to respond_to(:local_shield) }
+  it { is_expected.to respond_to(:visitor_shield) }
+  it { is_expected.to respond_to(:schedule) }
+  it { is_expected.to respond_to(:local_goals) }
+  it { is_expected.to respond_to(:visitor_goals) }
 
   describe 'associations' do
-    it { should belong_to :league }
-    it { should have_many(:predictions).dependent(:destroy) }
+    it { is_expected.to belong_to :league }
+    it { is_expected.to have_many(:predictions).dependent(:destroy) }
   end
 
   describe '#save_from_json' do

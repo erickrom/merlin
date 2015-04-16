@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Authentication" do
   subject { page }
@@ -10,12 +10,12 @@ describe "Authentication" do
     describe "with invalid information" do
       before { click_button "Sign in" }
 
-      it { should have_title('Sign in') }
-      it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+      it { is_expected.to have_title('Sign in') }
+      it { is_expected.to have_selector('div.alert.alert-error', text: 'Invalid') }
 
       describe "after visiting another page" do
         before { click_link "Futbol Merlin"  }
-        it { should_not have_selector('div.alert.alert-error') }
+        it { is_expected.to_not have_selector('div.alert.alert-error') }
       end
     end
 
@@ -36,7 +36,7 @@ describe "Authentication" do
 
       describe "signing out" do
         before { click_link "Sign out" }
-        it { should have_link('Sign in') }
+        it { is_expected.to have_link('Sign in') }
       end
     end
   end
@@ -63,8 +63,8 @@ describe "Authentication" do
     describe "signin page" do
       before { visit signin_path }
 
-      it { should have_content('Sign in') }
-      it { should have_title('Sign in') }
+      it { is_expected.to have_content('Sign in') }
+      it { is_expected.to have_title('Sign in') }
     end
 
     it "should not let you look at a user's page and redirect to sign in" do
@@ -84,7 +84,7 @@ describe "Authentication" do
 
     describe "visiting the user index" do
       before { visit users_path }
-      it { should have_title('Sign in') }
+      it { is_expected.to have_title('Sign in') }
     end
   end
 end

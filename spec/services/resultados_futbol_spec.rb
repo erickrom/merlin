@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ResultadosFutbol do
   describe "#get_leagues" do

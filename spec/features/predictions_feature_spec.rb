@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Adding predictions to a tournament', js: true do
   include FeatureSpecHelpers
@@ -10,27 +10,27 @@ describe 'Adding predictions to a tournament', js: true do
   let(:match_2) { create(:match, league: league) }
 
   before do
-    MatchFetcher.stub(:get_matches).and_return([match_1, match_2])
+    allow(MatchFetcher).to receive(:get_matches).and_return([match_1, match_2])
     visit signin_path
     sign_in_user(user)
   end
 
   def expect_page_to_not_show_prediction_form_for_match(match)
-    page.should_not have_css("#edit_prediction_match_#{match.id}")
-    page.should_not have_css("#prediction_match_#{match.id}_local_goals")
-    page.should_not have_css("#prediction_match_#{match.id}_visitor_goals")
+    expect(page).to_not have_css("#edit_prediction_match_#{match.id}")
+    expect(page).to_not have_css("#prediction_match_#{match.id}_local_goals")
+    expect(page).to_not have_css("#prediction_match_#{match.id}_visitor_goals")
   end
 
   def expect_page_to_show_prediction_form_for_match(match)
-    page.should have_css("#edit_prediction_match_#{match.id}")
-    page.should have_css("#prediction_match_#{match.id}_local_goals")
-    page.should have_css("#prediction_match_#{match.id}_visitor_goals")
+    expect(page).to have_css("#edit_prediction_match_#{match.id}")
+    expect(page).to have_css("#prediction_match_#{match.id}_local_goals")
+    expect(page).to have_css("#prediction_match_#{match.id}_visitor_goals")
   end
 
   def expect_page_to_show_prediction_for(prediction)
-    page.should have_css("#my_prediction_match_#{prediction.match.id}", count: 1)
-    page.should have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.local_goals)
-    page.should have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.visitor_goals)
+    expect(page).to have_css("#my_prediction_match_#{prediction.match.id}", count: 1)
+    expect(page).to have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.local_goals)
+    expect(page).to have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.visitor_goals)
   end
 
   context 'when the tournament has no prediction for the current user' do
@@ -54,7 +54,7 @@ describe 'Adding predictions to a tournament', js: true do
 
       expect(page).to have_content 'Prediction saved successfully'
 
-      page.should have_text(user.first_name)
+      expect(page).to have_text(user.first_name)
 
       last_prediction = Prediction.last
       expect_page_to_show_prediction_for(last_prediction)
@@ -87,7 +87,7 @@ describe 'Adding predictions to a tournament', js: true do
 
       expect(page).to have_content 'Prediction saved successfully'
 
-      page.should have_content(user.first_name)
+      expect(page).to have_content(user.first_name)
 
       expect_page_to_show_prediction_for(prediction.reload)
 

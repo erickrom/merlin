@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe UsersController do
   describe "GET new" do
@@ -8,7 +8,7 @@ describe UsersController do
 
     it "assigns a new user" do
       make_request
-      assigns(:user).should be_a(User)
+      expect(assigns(:user)).to be_a(User)
     end
   end
 
@@ -26,7 +26,7 @@ describe UsersController do
 
       it "shows the flash welcome message" do
         make_request
-        flash[:success].should == "John, Welcome to Futbol Merlin!"
+        expect(flash[:success]).to eq "John, Welcome to Futbol Merlin!"
       end
     end
 

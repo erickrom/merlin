@@ -19,7 +19,7 @@ gem 'bootstrap-select-rails', '~> 1.3.0.1'
 gem 'unobtrusive_flash', '>=3'
 
 group :development, :test do
-  gem 'rspec-rails', '2.99'
+  gem 'rspec-rails'
   gem 'sqlite3', '1.3.8'
 end
 

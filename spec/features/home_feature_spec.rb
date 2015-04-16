@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 
 describe "Home page" do
@@ -8,8 +8,8 @@ describe "Home page" do
     visit root_path
   end
 
-  it { should have_content('Welcome Futbol Wizards!') }
-  it { should have_title('Futbol Merlin | Home') }
+  it { is_expected.to have_content('Welcome Futbol Wizards!') }
+  it { is_expected.to have_title('Futbol Merlin | Home') }
 
   describe "Signup Button" do
     it "takes you to the signup page" do

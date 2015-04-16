@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe LeagueFetcher do
   let(:current_time) { Time.now.utc }
@@ -21,7 +21,7 @@ describe LeagueFetcher do
       end
 
       it "doesn't make a call to the ResultadosFutbol api" do
-        ResultadosFutbol.should_not_receive(:get_leagues)
+        expect(ResultadosFutbol).to_not receive(:get_leagues)
         LeagueFetcher.get_leagues
       end
     end
@@ -36,9 +36,9 @@ describe LeagueFetcher do
       it "calls ResultadosFutbol webservice to fetch latest league data" do
         Timecop.freeze(current_time) do
           response = double('league response object')
-          response.stub(:status).and_return(200)
-          response.stub(:body).and_return(load_fixture('leagues_response', 'json'))
-          ResultadosFutbol.should_receive(:get_leagues).and_return(response)
+          allow(response).to receive(:status).and_return(200)
+          allow(response).to receive(:body).and_return(load_fixture('leagues_response', 'json'))
+          expect(ResultadosFutbol).to receive(:get_leagues).and_return(response)
           LeagueFetcher.get_leagues
         end
       end

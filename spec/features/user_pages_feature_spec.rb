@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "User pages" do
   include FeatureSpecHelpers
@@ -29,8 +29,8 @@ describe "User pages" do
 
     subject { page }
 
-    it { should have_title('All Users') }
-    it { should have_content('All Users') }
+    it { is_expected.to have_title('All Users') }
+    it { is_expected.to have_content('All Users') }
 
     #describe "pagination" do
     #  before(:all) do

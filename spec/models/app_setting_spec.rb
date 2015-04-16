@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe AppSetting do
-  it { should respond_to(:name) }
-  it { should respond_to(:value) }
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:value) }
 end

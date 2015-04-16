@@ -8,6 +8,6 @@ FactoryGirl.define do
     current_round 1
     total_group 8
     total_rounds 8
-    flag_url_path 'http://thumb.resfu.com/media/img/flags/44x27/ue.png'
+    flag_url_path 'http://example.com'
   end
 end

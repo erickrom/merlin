@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe MatchFetcher do
   describe '#get_matches' do
@@ -33,7 +33,7 @@ describe MatchFetcher do
 
         context 'and the service is down' do
           before do
-            ResultadosFutbol.stub(:get_matches).and_raise(Faraday::ConnectionFailed, '')
+            allow(ResultadosFutbol).to receive(:get_matches).and_raise(Faraday::ConnectionFailed, '')
           end
 
           it 'returns the matches from the database' do
@@ -49,7 +49,7 @@ describe MatchFetcher do
         end
 
         it 'doesnt make a request to get the matches' do
-          ResultadosFutbol.should_not_receive(:get_matches)
+          expect(ResultadosFutbol).to_not receive(:get_matches)
           subject
         end
 

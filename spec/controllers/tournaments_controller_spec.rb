@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe TournamentsController do
   include SessionsHelper
@@ -18,11 +18,11 @@ describe TournamentsController do
     end
 
     it "shows the New Tournament page" do
-      make_request.should render_template('tournaments/new')
+      expect(make_request).to render_template('tournaments/new')
     end
 
     it "calls the league fetcher" do
-      LeagueFetcher.should_receive(:get_leagues).and_return([league_1, league_2])
+      allow(LeagueFetcher).to receive(:get_leagues).and_return([league_1, league_2])
       make_request
     end
 
@@ -64,7 +64,7 @@ describe TournamentsController do
     let(:round) { tournament.league.current_round }
 
     before do
-      MatchFetcher.stub(:get_matches).with(tournament.league, group, round).and_return([match_1])
+      allow(MatchFetcher).to receive(:get_matches).with(tournament.league, group, round).and_return([match_1])
     end
 
     def make_request
@@ -93,7 +93,7 @@ describe TournamentsController do
       context "when the group param is passed" do
         context "when the group is valid" do
           it "assigns the group" do
-            MatchFetcher.stub(:get_matches).with(tournament.league, 2, round).and_return([match_1])
+            allow(MatchFetcher).to receive(:get_matches).with(tournament.league, 2, round).and_return([match_1])
             get :show, id: tournament.id, group: 2
             expect(assigns(:group)).to eq(2)
           end
@@ -109,7 +109,7 @@ describe TournamentsController do
 
       describe "matches" do
         it "calls the MatchFetcher" do
-          MatchFetcher.should_receive(:get_matches).with(tournament.league, group, round).and_return([match_1])
+          expect(MatchFetcher).to receive(:get_matches).with(tournament.league, group, round).and_return([match_1])
           make_request
         end
 

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe User do
 
@@ -10,35 +10,35 @@ describe User do
 
   subject { @user }
 
-  it { should respond_to(:first_name) }
-  it { should respond_to(:last_name) }
-  it { should respond_to(:email) }
-  it { should respond_to(:password_digest) }
-  it { should respond_to(:password) }
-  it { should respond_to(:password_confirmation) }
-  it { should respond_to(:remember_token) }
-  it { should respond_to(:authenticate) }
+  it { is_expected.to respond_to(:first_name) }
+  it { is_expected.to respond_to(:last_name) }
+  it { is_expected.to respond_to(:email) }
+  it { is_expected.to respond_to(:password_digest) }
+  it { is_expected.to respond_to(:password) }
+  it { is_expected.to respond_to(:password_confirmation) }
+  it { is_expected.to respond_to(:remember_token) }
+  it { is_expected.to respond_to(:authenticate) }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "associations" do
-    it { should have_many(:tournaments) }
+    it { is_expected.to have_many(:tournaments) }
   end
 
   describe "first and last name validations" do
     describe "when name is not present" do
       before { @user.first_name = " " }
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
 
     describe "when first_name is too long" do
       before { @user.first_name = "a" * 51 }
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
 
     describe "when last_name is too long" do
       before { @user.last_name = "a" * 51 }
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
   end
 
@@ -50,7 +50,7 @@ describe User do
 
     describe "when email is not present" do
       before { @user.email = " " }
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
 
     describe "when email format is invalid" do
@@ -81,7 +81,7 @@ describe User do
         user_with_same_email.save
       end
 
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
   end
 
@@ -91,17 +91,17 @@ describe User do
         @user = User.new(first_name: "John", last_name: "Doe", password: " ", password_confirmation: " ")
       end
 
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
 
       describe "with a password that's too short" do
         before { @user.password = @user.password_confirmation = "a" * 5 }
-        it { should be_invalid }
+        it { is_expected.to be_invalid }
       end
     end
 
     describe "when password doesn't match confirmation" do
       before { @user.password_confirmation = "mismatch" }
-      it { should_not be_valid }
+      it { is_expected.to_not be_valid }
     end
   end
 
@@ -111,13 +111,13 @@ describe User do
     before { @user.save }
 
     describe "with valid password" do
-      it { should eq found_user.authenticate(@user.password) }
+      it { is_expected.to eq found_user.authenticate(@user.password) }
     end
 
     describe "with invalid password" do
       let(:user_for_invalid_password) { found_user.authenticate("invalid") }
 
-      it { should_not eq user_for_invalid_password }
+      it { is_expected.to_not eq user_for_invalid_password }
       specify { expect(user_for_invalid_password).to be_falsey }
     end
   end

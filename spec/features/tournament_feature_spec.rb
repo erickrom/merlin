@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Tournament Page" do
   include FeatureSpecHelpers
@@ -10,7 +10,7 @@ describe "Tournament Page" do
                          local: 'Milan', visitor: 'Ajax', local_goals: 0, visitor_goals: 0) }
 
   before do
-    MatchFetcher.stub(:get_matches).and_return([match_1])
+    allow(MatchFetcher).to receive(:get_matches).and_return([match_1])
   end
 
   context "for a user not in the tournament" do

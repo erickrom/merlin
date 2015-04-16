@@ -1,21 +1,21 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe League do
-  it { should respond_to(:name) }
-  it { should respond_to(:external_id) }
-  it { should respond_to(:year) }
-  it { should respond_to(:group_code) }
-  it { should respond_to(:playoff) }
-  it { should respond_to(:current_round) }
-  it { should respond_to(:total_group) }
-  it { should respond_to(:total_rounds) }
-  it { should respond_to(:flag_url_path) }
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:external_id) }
+  it { is_expected.to respond_to(:year) }
+  it { is_expected.to respond_to(:group_code) }
+  it { is_expected.to respond_to(:playoff) }
+  it { is_expected.to respond_to(:current_round) }
+  it { is_expected.to respond_to(:total_group) }
+  it { is_expected.to respond_to(:total_rounds) }
+  it { is_expected.to respond_to(:flag_url_path) }
 
   context ".external_id" do
     it "should be unique" do
       league = create(:league)
       duplicate_league = League.new(name: 'Another League', external_id: league.external_id)
-      duplicate_league.should_not be_valid
+      expect(duplicate_league).to_not be_valid
     end
   end
 

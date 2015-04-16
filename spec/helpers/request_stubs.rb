@@ -5,7 +5,7 @@ module FutbolResultadosRequestStubs
   end
 
   def expect_leagues_request
-    WebMock.should have_requested(:get, "#{Settings.results_api.host}/scripts/api/api.php?key=#{Settings.results_api.key}&format=json&req=leagues")
+    expect(WebMock).to have_requested(:get, "#{Settings.results_api.host}/scripts/api/api.php?key=#{Settings.results_api.key}&format=json&req=leagues")
   end
 
   def stub_matches_request(status = 200, options = {})
@@ -20,7 +20,7 @@ module FutbolResultadosRequestStubs
     params = "?key=#{Settings.results_api.key}&format=json&req=matchs&league=#{options[:league]}"
     params = params + "&round=#{options[:round]}" if options[:round].present?
     params = params + "&group=#{options[:group]}" if options[:group].present?
-    WebMock.should have_requested(:get, "#{Settings.results_api.host}/scripts/api/api.php#{params}")
+    expect(WebMock).to have_requested(:get, "#{Settings.results_api.host}/scripts/api/api.php#{params}")
   end
 end
 

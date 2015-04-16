@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe SessionsController do
   include SessionsHelper
@@ -9,7 +9,7 @@ describe SessionsController do
     let(:remember_token) { 'some-unique-remember-token' }
 
     before do
-      User.stub(:new_remember_token).and_return(remember_token)
+      allow(User).to receive(:new_remember_token).and_return(remember_token)
     end
 
     def make_request

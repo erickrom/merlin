@@ -1,12 +1,12 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Tournament do
-  it { should respond_to(:name) }
+  it { is_expected.to respond_to(:name) }
 
   describe "associations" do
-    it { should belong_to :user }
-    it { should belong_to :league }
-    it { should have_many :predictions }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :league }
+    it { is_expected.to have_many :predictions }
   end
 
   describe "is_user_in_tournament?" do
