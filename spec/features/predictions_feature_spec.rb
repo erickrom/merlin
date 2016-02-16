@@ -16,40 +16,36 @@ describe 'Adding predictions to a tournament', js: true do
   end
 
   def expect_page_to_not_show_prediction_form_for_match(match)
-    expect(page).to_not have_css("#edit_prediction_match_#{match.id}")
-    expect(page).to_not have_css("#prediction_match_#{match.id}_local_goals")
-    expect(page).to_not have_css("#prediction_match_#{match.id}_visitor_goals")
+    within "#teams_match_#{match.id}" do
+      expect(page).to_not have_field 'local_goals', type: 'number'
+      expect(page).to_not have_field 'visitor_goals', type: 'number'
+    end
   end
 
   def expect_page_to_show_prediction_form_for_match(match)
-    expect(page).to have_css("#edit_prediction_match_#{match.id}")
-    expect(page).to have_css("#prediction_match_#{match.id}_local_goals")
-    expect(page).to have_css("#prediction_match_#{match.id}_visitor_goals")
+    within "#teams_match_#{match.id}" do
+      expect(page).to have_field 'local_goals', type: 'number'
+      expect(page).to have_field 'visitor_goals', type: 'number'
+    end
   end
 
   def expect_page_to_show_prediction_for(prediction)
-    expect(page).to have_css("#my_prediction_match_#{prediction.match.id}", count: 1)
-    expect(page).to have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.local_goals)
-    expect(page).to have_css("#my_prediction_match_#{prediction.match.id} td", text: prediction.visitor_goals)
+    expect(page).to have_css("##{prediction.user.first_name}_#{prediction.match.id}_local_goals", text: prediction.local_goals)
+    expect(page).to have_css("##{prediction.user.first_name}_#{prediction.match.id}_visitor_goals", text: prediction.visitor_goals)
   end
 
   context 'when the tournament has no prediction for the current user' do
-    it 'allows the user to enter a prediction' do
+    it 'lets the user enter a prediction' do
       visit tournament_path(tournament.id)
 
-      expect(page).to have_content('Add Prediction')
-      expect_page_to_not_show_prediction_form_for_match(match_1)
-      expect_page_to_not_show_prediction_form_for_match(match_2)
+      expect(page).to have_content('Add prediction')
 
-      page.within "#match_#{match_1.id}" do
-        click_link 'Add Prediction'
-        #expect(page).to have_content("Save Prediction")
-        expect_page_to_show_prediction_form_for_match(match_1)
+      expect_page_to_show_prediction_form_for_match(match_1)
+      within "#teams_match_#{match_1.id}" do
+        fill_in 'local_goals', with: '1'
+        fill_in 'visitor_goals', with: '2'
 
-        fill_in 'prediction[local_goals]', with: '1'
-        fill_in 'prediction[visitor_goals]', with: '2'
-
-        click_on 'Save Prediction'
+        click_on 'Add prediction'
       end
 
       expect(page).to have_content 'Prediction saved successfully'
@@ -73,11 +69,12 @@ describe 'Adding predictions to a tournament', js: true do
     it 'allows the user to edit their prediction' do
       visit tournament_path(tournament)
 
+      expect_page_to_not_show_prediction_form_for_match(match_1)
+
       page.within "#match_#{match_1.id}" do
         expect(page).to have_text('Edit Prediction')
 
         click_on 'Edit Prediction'
-        #expect(page).to have_text('Save Prediction')
 
         fill_in 'prediction[local_goals]', with: '4'
         fill_in 'prediction[visitor_goals]', with: '3'

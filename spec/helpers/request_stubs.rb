@@ -5,7 +5,8 @@ module FutbolResultadosRequestStubs
   end
 
   def expect_leagues_request
-    expect(WebMock).to have_requested(:get, "#{Settings.results_api.host}/scripts/api/api.php?key=#{Settings.results_api.key}&format=json&req=leagues")
+    expect(WebMock).to have_requested(
+        :get, "#{Settings.results_api.host}/scripts/api/api.php?key=#{Settings.results_api.key}&format=json&req=leagues").once
   end
 
   def stub_matches_request(status = 200, options = {})

@@ -12,16 +12,15 @@ class PredictionsController < SessionRequiredController
   end
 
   def create
+    puts "prediction params: #{prediction_params.inspect}"
     @prediction = Prediction.new(prediction_params)
     @prediction.user = current_user
 
-    @prediction.save!
-
-    flash[:success] = 'Prediction saved successfully'
-
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.js
+    if @prediction.save
+      flash[:success] = 'Prediction saved successfully'
+      render json: {"prediction": @prediction, "user_name": @prediction.user.first_name}
+    else
+      render json: @prediction.errors, status: :unprocessable_entity
     end
   end
 

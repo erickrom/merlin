@@ -9,48 +9,29 @@
   </div>
   <ul class="list-group">
     <% @matches.each do |match| %>
-      <li id="match_<%= match.id %>" class="list-group-item">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row" id="teams_match_<%= match.id %>">
-              <img src="<%= match.local_shield %>" class="team-shield col-md-1"><div class="local col-md-3"><%= match.local %></div>
-              <div class="score col-md-2"> <%= match.local_goals %> - <%= match.visitor_goals %></div>
-              <img src="<%= match.visitor_shield %>" class="team-shield col-md-1"><div class="visitor col-md-3"><%= match.visitor %></div>
-              <div id="edit_button_<%= match.id %>_cont" class="col-md-2">
-                <% my_prediction = match.get_prediction_for(current_user, @tournament)
-                   if my_prediction.present?
-                     button_text = 'Edit Prediction'
-                   else
-                     button_text = 'Add Prediction'
-                   end %>
-                <%= link_to button_text, "#{new_prediction_path}?match_id=#{match.id}&tournament_id=#{@tournament.id}",
-                            id: "edit_prediction_#{match.id}", class: "btn btn-primary btn-xs", remote: true %></div>
-            </div>
-            <div class="row" id="predictions_container">
-              <div class="col-md-10 col-md-offset-1">
-                <table class="table table-striped predictions_table">
-                  <thead>
-                  <tr>
-                    <th>Player</th>
-                    <th>Prediction</th>
-                    <th>Points</th>
-                  </tr>
-                  </thead>
-                  <tbody id="match_<%= match.id %>_predictions">
-                  <% match.predictions_for_tournament(@tournament).each do |prediction| %>
-                    <tr id="my_prediction_match_<%= match.id %>">
-                      <td><%= prediction.user.first_name %></td>
-                      <td><%= prediction.local_goals %> - <%= prediction.visitor_goals %></td>
-                      <td></td>
-                    </tr>
-                  <% end %>
-                  </tbody>
-                </table>
+        <li id="match_<%= match.id %>" class="list-group-item">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" id="teams_match_<%= match.id %>">
+                <img src="<%= match.local_shield %>" class="team-shield col-md-1">
+                <div class="local col-md-3"><%= match.local %></div>
+                <div class="score col-md-2"> <%= match.local_goals %> - <%= match.visitor_goals %></div>
+                <img src="<%= match.visitor_shield %>" class="team-shield col-md-1">
+                <div class="visitor col-md-3"><%= match.visitor %></div>
+                <div class="row" id="predictions_container">
+                  <div class="col-md-10 col-md-offset-1">
+                    <% predictions = match.predictions_for_tournament(@tournament)
+                       users = predictions.map { |prediction| prediction.user.first_name }
+                       puts "^^^^^^^^predictions for match: #{match.id}: #{predictions.inspect}"
+                    %>
+                    <%= react_component 'Predictions', {data: {
+                        predictions: predictions, users: users,
+                        tournament_id: @tournament.id, match_id: match.id}} %>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </li>
+        </li>
     <% end %>
   </ul>
 </div>

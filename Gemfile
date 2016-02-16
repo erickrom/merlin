@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.0'
 gem 'rails', '4.0.2'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'devise'
@@ -17,10 +17,11 @@ gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-select-rails', '~> 1.3.0.1'
 
 gem 'unobtrusive_flash', '>=3'
+gem 'react-rails', '~> 1.0'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'sqlite3', '1.3.8'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -29,7 +30,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'launchy'
-  gem 'selenium-webdriver', '2.35.1'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'webmock', '~> 1.17.1'
